@@ -111,11 +111,11 @@ public class CourierPerformance extends JPanel {
 		panel_1.add(label_1);
 		
 		JLabel lblNoofDeliveries = new JLabel("No.of Deliveries");
-		lblNoofDeliveries.setBounds(297, 82, 121, 16);
+		lblNoofDeliveries.setBounds(296, 82, 121, 16);
 		panel_1.add(lblNoofDeliveries);
 		
 		JLabel label_2 = new JLabel("--------");
-		label_2.setBounds(311, 132, 56, 16);
+		label_2.setBounds(320, 132, 56, 16);
 		panel_1.add(label_2);
 		
 		JButton btnPrint = new JButton("Print");
