@@ -45,16 +45,17 @@ public class LoginDAO {
 	private void shutdown() {
 		EntityManager em = ConnectionUtil.getEntityManager();
 		EntityTransaction tx = em.getTransaction();
-		tx.begin();
+		if (!tx.isActive())
+			tx.begin();
 		em.createNativeQuery("SHUTDOWN").executeUpdate();
 		em.close();
 	}
 
 	public void insertOrderTaker(Users users) {
 		EntityTransaction tx = getEntityManager().getTransaction();
-
 		try {
-			tx.begin();
+			if (!tx.isActive())
+				tx.begin();
 			getEntityManager().persist(users);
 			tx.commit();
 		} catch (Throwable t) {

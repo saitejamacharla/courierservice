@@ -29,7 +29,7 @@ public class UserDAO {
 		if (getEntityManager().isOpen()) {
 			getEntityManager().close();
 		}
-		//shutdown();
+		// shutdown();
 	}
 
 	private void shutdown() {
@@ -42,17 +42,15 @@ public class UserDAO {
 
 	public void insertOrderTaker(Users users) {
 		EntityTransaction tx = getEntityManager().getTransaction();
-
 		try {
-			tx.begin();
+			if (!tx.isActive())
+				tx.begin();
 			getEntityManager().persist(users);
 			tx.commit();
 		} catch (Throwable t) {
 			t.printStackTrace();
 			tx.rollback();
-		} finally {
-			close();
-		}
+		} 
 	}
 
 	public List<Users> getAllOrderTakers() {
@@ -67,22 +65,22 @@ public class UserDAO {
 		Session session = (Session) getEntityManager().getDelegate();
 		EntityTransaction tx = getEntityManager().getTransaction();
 		try {
-			tx.begin();
+			if (!tx.isActive())
+				tx.begin();
 			getEntityManager().merge(users);
 			tx.commit();
 		} catch (Throwable t) {
 			t.printStackTrace();
 			tx.rollback();
-		} finally {
-			close();
-		}
+		} 
 	}
 
 	public void deleteOrderTaker(String selectedValue) {
 		Session session = (Session) getEntityManager().getDelegate();
 		EntityTransaction tx = getEntityManager().getTransaction();
 		try {
-			tx.begin();
+			if (!tx.isActive())
+				tx.begin();
 			Users users = new Users();
 			users.setUsername(selectedValue);
 			getEntityManager().remove(
@@ -92,9 +90,7 @@ public class UserDAO {
 		} catch (Throwable t) {
 			t.printStackTrace();
 			tx.rollback();
-		} finally {
-			close();
-		}
+		} 
 
 	}
 
@@ -103,15 +99,14 @@ public class UserDAO {
 		Users user = getEntityManager().find(Users.class, users.getUsername());
 		EntityTransaction tx = getEntityManager().getTransaction();
 		try {
-		tx.begin();
-		user.setPassword(newPassword);
-		tx.commit();
+			if (!tx.isActive())
+				tx.begin();
+			user.setPassword(newPassword);
+			tx.commit();
 		} catch (Throwable t) {
 			t.printStackTrace();
 			tx.rollback();
-		} finally {
-            close();
-        }
+		} 
 	}
 
 }

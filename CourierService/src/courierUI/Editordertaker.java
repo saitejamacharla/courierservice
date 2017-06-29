@@ -89,6 +89,12 @@ public class Editordertaker extends JPanel {
 				users.setPassword(selOT.getPassword());
 				userDAO.updateOrderTaker(users);
 				JOptionPane.showMessageDialog(currentFrame, "Order Taker Updated");
+				
+				// moving page to order taker list
+				currentFrame.getContentPane().removeAll();
+				currentFrame.getContentPane()
+						.add(new Ordertakerlist(currentFrame, null));
+				currentFrame.getContentPane().revalidate();
 			}
 		});
 		btnNewButton.setBounds(59, 281, 97, 25);

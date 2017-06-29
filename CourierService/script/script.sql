@@ -13,3 +13,13 @@ create table companyinfo (companyid int(6) primary key not null, billrate int(8)
 insert into companyinfo values(1, 12,10,123466788, 12, 'CST');
 
 create table customer (customerno varchar(50) primary key not null, name varchar(50), phoneno varchar(12), custaddress varchar(100), custemail varchar(50));
+
+ALTER TABLE CreateDeliveryTicket MODIFY pickUpTime date;
+
+ALTER TABLE CreateDeliveryTicket MODIFY actualDeliveredDate date;
+
+ALTER TABLE CreateDeliveryTicket MODIFY createdDate date;
+
+ALTER TABLE CreateDeliveryTicket MODIFY createdDate date;
+
+

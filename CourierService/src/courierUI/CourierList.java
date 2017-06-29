@@ -101,6 +101,10 @@ public class CourierList extends JPanel {
 		        }
 				courierDAO.deleteCourier(selectedCourier);
 				JOptionPane.showMessageDialog(currentFrame, "Courier Deleted");
+				
+				currentFrame.getContentPane().removeAll();
+				currentFrame.getContentPane().add(new CourierList(currentFrame, null));
+				currentFrame.getContentPane().revalidate();
 			}
 		});
 		add(btnDelete);

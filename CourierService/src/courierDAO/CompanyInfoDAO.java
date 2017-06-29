@@ -13,7 +13,7 @@ import courierconnection.ConnectionUtil;
 import courierentity.CompanyInfo;
 
 public class CompanyInfoDAO {
-	
+
 	@PersistenceContext(unitName = "agenda")
 	private final EntityManager entityManager;
 
@@ -24,7 +24,7 @@ public class CompanyInfoDAO {
 	public EntityManager getEntityManager() {
 		return entityManager;
 	}
-	
+
 	private void close() {
 		if (getEntityManager().isOpen()) {
 			getEntityManager().close();
@@ -39,23 +39,24 @@ public class CompanyInfoDAO {
 		em.createNativeQuery("SHUTDOWN").executeUpdate();
 		em.close();
 	}
-	
+
 	public void updateCompanyInfo(CompanyInfo companyInfo) {
 		Session session = (Session) getEntityManager().getDelegate();
 		CompanyInfo companyInfo2 = (CompanyInfo) session.get(CompanyInfo.class,
 				1);
 		EntityTransaction tx = getEntityManager().getTransaction();
 		try {
-		tx.begin();
-		companyInfo.setCompanyId(1);
-		getEntityManager().merge(companyInfo);
-		tx.commit();
-		}catch (Throwable t) {
-            t.printStackTrace();
-            tx.rollback();
-        } finally {
-            close();
-        }
+			if (!tx.isActive())
+				tx.begin();
+			companyInfo.setCompanyId(1);
+			getEntityManager().merge(companyInfo);
+			tx.commit();
+		} catch (Throwable t) {
+			t.printStackTrace();
+			tx.rollback();
+		} finally {
+			//close();
+		}
 
 	}
 

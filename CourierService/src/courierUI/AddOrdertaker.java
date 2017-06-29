@@ -86,6 +86,11 @@ public class AddOrdertaker extends JPanel {
 				userDAO.insertOrderTaker(users);
 				JOptionPane.showMessageDialog(currentFrame,
 						"Order Taker Persisted");
+				// moving page to order taker list
+				currentFrame.getContentPane().removeAll();
+				currentFrame.getContentPane()
+						.add(new Ordertakerlist(currentFrame, userInfo));
+				currentFrame.getContentPane().revalidate();
 			}
 		});
 

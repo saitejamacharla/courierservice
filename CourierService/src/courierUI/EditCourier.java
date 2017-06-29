@@ -72,8 +72,13 @@ public class EditCourier extends JPanel {
 				courier.setCourierName(courName_textField.getText());
 				courier.setCourierPhoneNo(courPhNo_textField.getText());
 				courier.setCourierNo(selectedCourier.getCourierNo());
+				courier.setCourierBonus(selectedCourier.getCourierBonus());
 				courierDAO.updateCourier(courier);
 				JOptionPane.showMessageDialog(currentFrame, "Courier Details Updated");
+				
+				currentFrame.getContentPane().removeAll();
+				currentFrame.getContentPane().add(new CourierList(currentFrame, null));
+				currentFrame.getContentPane().revalidate();
 			}
 		});
 		

@@ -106,6 +106,10 @@ public class CustomerList extends JPanel {
 		        }
 				customerDAO.deletCustomer(selectedCust);
 				JOptionPane.showMessageDialog(currentFrame, "Customer Deleted");
+				
+				currentFrame.getContentPane().removeAll();
+				currentFrame.getContentPane().add(new CustomerList(currentFrame, null));
+				currentFrame.getContentPane().revalidate();
 			}
 		});
 		add(btnDelete);

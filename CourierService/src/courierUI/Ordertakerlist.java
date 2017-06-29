@@ -90,6 +90,12 @@ public class Ordertakerlist extends JPanel {
 				String selectedValue = (String)list.getSelectedValue();
 				userDao.deleteOrderTaker(selectedValue);
 				JOptionPane.showMessageDialog(currentFrame, "Order Taker Deleted");
+				
+				// moving page to order taker list
+				currentFrame.getContentPane().removeAll();
+				currentFrame.getContentPane()
+						.add(new Ordertakerlist(currentFrame, userInfo));
+				currentFrame.getContentPane().revalidate();
 			}
 		});
 		add(btnDelete);

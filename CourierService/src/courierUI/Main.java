@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
@@ -21,13 +22,15 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import courierMap.DijkstraFind;
+import courierMap.WeighedDigraph;
 import courierentity.Users;
 
 public class Main extends JFrame {
 
 	private JPanel contentPane;
 	private static final String FILE_PATH = "C:/Users/theza/git/courierservice/CourierService/src/courierUI/Map.jpg";
-	
+
 	private TreeMap<String, Users> userInfo = new TreeMap<String, Users>();
 
 	/**
@@ -39,7 +42,22 @@ public class Main extends JFrame {
 				try {
 					Main frame = new Main();
 					frame.setVisible(true);
+					loadMap();
 				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+
+			private void loadMap() {
+				WeighedDigraph graph;
+
+				try {
+					graph = new WeighedDigraph(
+							"C:/Users/theza/git/courierservice/CourierService/src/courierMap/courier_map.txt");
+
+					DijkstraFind finder = new DijkstraFind(graph);
+
+				} catch (IOException e) {
 					e.printStackTrace();
 				}
 			}
@@ -53,23 +71,22 @@ public class Main extends JFrame {
 		JFrame currentFrame = this;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 868, 558);
-		
+
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
-		
+
 		JMenu mnHome = new JMenu("Home");
 		menuBar.add(mnHome);
-		
+
 		JMenuItem mntmLogin = new JMenuItem("Login");
 		mnHome.add(mntmLogin);
-		
+
 		JMenu mnNewMenu = new JMenu("Maintainance");
 		mnNewMenu.setVisible(false);
 		menuBar.add(mnNewMenu);
-		
+
 		JMenu mnCompanyInformation = new JMenu("Company Information");
 		mnNewMenu.add(mnCompanyInformation);
-		
 
 		JMenuItem mntmViewComapnyInfo = new JMenuItem("View Comapny Info");
 		mnCompanyInformation.add(mntmViewComapnyInfo);
@@ -80,31 +97,33 @@ public class Main extends JFrame {
 				getContentPane().revalidate();
 			}
 		});
-		
+
 		JMenuItem mntmUpdateCompanyInfo = new JMenuItem("Update Company Info");
 		mnCompanyInformation.add(mntmUpdateCompanyInfo);
 		mntmUpdateCompanyInfo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				getContentPane().removeAll();
-				getContentPane().add(new UpdateCompanyInformation(currentFrame));
+				getContentPane()
+						.add(new UpdateCompanyInformation(currentFrame));
 				getContentPane().revalidate();
 			}
 		});
-		
+
 		JMenu mnOrderTakerSelection = new JMenu("Order Taker Selection");
 		mnNewMenu.add(mnOrderTakerSelection);
-		
+
 		JMenuItem mntmOrderTakerList = new JMenuItem("Order Taker List");
 		mnOrderTakerSelection.add(mntmOrderTakerList);
-		
+
 		mntmOrderTakerList.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				getContentPane().removeAll();
-				getContentPane().add(new Ordertakerlist(currentFrame, userInfo));
+				getContentPane()
+						.add(new Ordertakerlist(currentFrame, userInfo));
 				getContentPane().revalidate();
 			}
 		});
-		
+
 		JMenuItem mntmAddOrderTaker = new JMenuItem("Add Order Taker");
 		mnOrderTakerSelection.add(mntmAddOrderTaker);
 		mntmAddOrderTaker.addActionListener(new ActionListener() {
@@ -114,16 +133,18 @@ public class Main extends JFrame {
 				getContentPane().revalidate();
 			}
 		});
-		
-		/*JMenuItem mntmEditOrderTaker = new JMenuItem("Edit Order Taker");
-		mnOrderTakerSelection.add(mntmEditOrderTaker);*/
-		
+
+		/*
+		 * JMenuItem mntmEditOrderTaker = new JMenuItem("Edit Order Taker");
+		 * mnOrderTakerSelection.add(mntmEditOrderTaker);
+		 */
+
 		JMenu mnCustomerSelection = new JMenu("Customer Selection");
 		mnNewMenu.add(mnCustomerSelection);
-		
+
 		JMenuItem mntmCustomerList = new JMenuItem("Customer List");
 		mnCustomerSelection.add(mntmCustomerList);
-		
+
 		mntmCustomerList.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				getContentPane().removeAll();
@@ -131,10 +152,10 @@ public class Main extends JFrame {
 				getContentPane().revalidate();
 			}
 		});
-		
+
 		JMenuItem mntmAddCustomer = new JMenuItem("Add Customer");
 		mnCustomerSelection.add(mntmAddCustomer);
-		
+
 		mntmAddCustomer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				getContentPane().removeAll();
@@ -142,39 +163,44 @@ public class Main extends JFrame {
 				getContentPane().revalidate();
 			}
 		});
-		
-		/*JMenuItem mntmEditCustomer = new JMenuItem("Edit Customer");
-		mnCustomerSelection.add(mntmEditCustomer);*/
-		
+
+		/*
+		 * JMenuItem mntmEditCustomer = new JMenuItem("Edit Customer");
+		 * mnCustomerSelection.add(mntmEditCustomer);
+		 */
+
 		JMenu mnMap = new JMenu("Map");
 		mnNewMenu.add(mnMap);
-		
+
 		JMenuItem mntmCityMap = new JMenuItem("City Map");
 		mnMap.add(mntmCityMap);
+
 		mntmCityMap.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			getContentPane().removeAll();
-			try {
-			BufferedImage img = ImageIO.read(new File(FILE_PATH));
-			        ImageIcon icon = new ImageIcon(img);
-			        JLabel label = new JLabel(icon);
-			        getContentPane().add(label);
-			} catch (Exception e1) {
-			e1.printStackTrace();
+				getContentPane().removeAll();
+				try {
+					BufferedImage img = ImageIO.read(new File(FILE_PATH));
+					ImageIcon icon = new ImageIcon(img);
+					JLabel label = new JLabel(icon);
+					// JOptionPane.showMessageDialog(null, label);
+					getContentPane().add(label);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+				// getContentPane().add(new CityMap(currentFrame, userInfo));
+				getContentPane().revalidate();
 			}
-			getContentPane().revalidate();
-			}
-			});
-		
+		});
+
 		JMenuItem mntmClosedIntersection = new JMenuItem("Closed Intersection");
 		mnMap.add(mntmClosedIntersection);
-		
+
 		JMenu mnCourierSelection = new JMenu("Courier Selection");
 		mnNewMenu.add(mnCourierSelection);
-		
+
 		JMenuItem mntmCourierList = new JMenuItem("Courier List");
 		mnCourierSelection.add(mntmCourierList);
-		
+
 		mntmCourierList.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				getContentPane().removeAll();
@@ -182,10 +208,10 @@ public class Main extends JFrame {
 				getContentPane().revalidate();
 			}
 		});
-		
+
 		JMenuItem mntmAddCourier = new JMenuItem("Add Courier");
 		mnCourierSelection.add(mntmAddCourier);
-		
+
 		mntmAddCourier.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				getContentPane().removeAll();
@@ -193,52 +219,106 @@ public class Main extends JFrame {
 				getContentPane().revalidate();
 			}
 		});
-		
-		/*JMenuItem mntmEditCourier = new JMenuItem("Edit Courier");
-		mnCourierSelection.add(mntmEditCourier);*/
-		
+
+		/*
+		 * JMenuItem mntmEditCourier = new JMenuItem("Edit Courier");
+		 * mnCourierSelection.add(mntmEditCourier);
+		 */
+
 		JMenu mnNewMenu_1 = new JMenu("DeliveryTicket");
 		mnNewMenu_1.setVisible(false);
 		menuBar.add(mnNewMenu_1);
-		
+
 		JMenuItem mntmCreate = new JMenuItem("Create");
 		mnNewMenu_1.add(mntmCreate);
-		
-		
-		JMenuItem mntmDeliveredTicket = new JMenuItem("Delivered Ticket");
-		mnNewMenu_1.add(mntmDeliveredTicket);
-		
-		JMenuItem mntmDeliveryTicketList = new JMenuItem("Delivery Ticket List");
-		mnNewMenu_1.add(mntmDeliveryTicketList);
-		
-		JMenu mnNewMenu_2 = new JMenu("Report");
-		mnNewMenu_2.setVisible(false);
-		menuBar.add(mnNewMenu_2);
-		
-		JMenuItem mntmClientBill = new JMenuItem("Client Bill");
-		mnNewMenu_2.add(mntmClientBill);
-		
-		JMenuItem mntmCourierPerformance = new JMenuItem("Courier Performance");
-		mnNewMenu_2.add(mntmCourierPerformance);
-		
-		JMenuItem mntmCompanyPerformance = new JMenuItem("Company Performance");
-		mnNewMenu_2.add(mntmCompanyPerformance);
-		
-		JMenu mnAccount = new JMenu("Account");
-		mnAccount.setVisible(false);
-		menuBar.add(mnAccount);
-		
-		JMenuItem mntmAcctProfile = new JMenuItem("Profile");
-		mnAccount.add(mntmAcctProfile);
-		
-		mntmAcctProfile.addActionListener(new ActionListener() {
+		mntmCreate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				getContentPane().removeAll();
-				getContentPane().add(new userprofilepage(currentFrame, userInfo));
+				getContentPane()
+						.add(new DeliveryTicket(currentFrame, userInfo));
 				getContentPane().revalidate();
 			}
 		});
+
+		JMenuItem mntmDeliveredTicket = new JMenuItem("Delivered Tickets");
+		mnNewMenu_1.add(mntmDeliveredTicket);
 		
+		mntmDeliveredTicket.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				getContentPane().removeAll();
+				getContentPane().add(
+						new DeliveredTicketsList(currentFrame, userInfo, null));
+				getContentPane().revalidate();
+			}
+		});
+
+		JMenuItem mntmSearch = new JMenuItem("Search");
+		mnNewMenu_1.add(mntmSearch);
+
+		mntmSearch.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				getContentPane().removeAll();
+				getContentPane().add(
+						new DeliveryTicketList(currentFrame, userInfo, null));
+				getContentPane().revalidate();
+			}
+		});
+
+		JMenu mnNewMenu_2 = new JMenu("Report");
+		mnNewMenu_2.setVisible(false);
+		menuBar.add(mnNewMenu_2);
+
+		JMenuItem mntmClientBill = new JMenuItem("Client Bill");
+		mnNewMenu_2.add(mntmClientBill);
+		
+		mntmClientBill.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				getContentPane().removeAll();
+				getContentPane().add(new Clientbill(currentFrame));
+				getContentPane().revalidate();
+			}
+		});
+
+		JMenuItem mntmCourierPerformance = new JMenuItem("Courier Performance");
+		mnNewMenu_2.add(mntmCourierPerformance);
+		
+		mntmCourierPerformance.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				getContentPane().removeAll();
+				getContentPane().add(
+						new CourierPerformance(currentFrame, userInfo));
+				getContentPane().revalidate();
+			}
+		});
+
+		JMenuItem mntmCompanyPerformance = new JMenuItem("Company Performance");
+		mnNewMenu_2.add(mntmCompanyPerformance);
+		
+		mntmCompanyPerformance.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				getContentPane().removeAll();
+				getContentPane().add(
+						new CompanyPerformance(currentFrame, userInfo));
+				getContentPane().revalidate();
+			}
+		});
+
+		JMenu mnAccount = new JMenu("Account");
+		mnAccount.setVisible(false);
+		menuBar.add(mnAccount);
+
+		JMenuItem mntmAcctProfile = new JMenuItem("Profile");
+		mnAccount.add(mntmAcctProfile);
+
+		mntmAcctProfile.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				getContentPane().removeAll();
+				getContentPane().add(
+						new userprofilepage(currentFrame, userInfo));
+				getContentPane().revalidate();
+			}
+		});
+
 		JMenuItem mntmChangePassword = new JMenuItem("Change Password");
 		mnAccount.add(mntmChangePassword);
 		mntmChangePassword.addActionListener(new ActionListener() {
@@ -248,30 +328,30 @@ public class Main extends JFrame {
 				getContentPane().revalidate();
 			}
 		});
-		
+
 		JMenuItem mntmLogout = new JMenuItem("Logout");
 		mnAccount.add(mntmLogout);
 		mntmLogout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				userInfo.remove(userInfo.firstKey());
 				getContentPane().removeAll();
-				List<JMenu> jMenus= new ArrayList<JMenu>();
+				List<JMenu> jMenus = new ArrayList<JMenu>();
 				jMenus.add(mnNewMenu);
 				jMenus.add(mnNewMenu_1);
 				jMenus.add(mnNewMenu_2);
 				jMenus.add(mnAccount);
-				for(int i=0;i<jMenus.size(); i++) {
+				for (int i = 0; i < jMenus.size(); i++) {
 					jMenus.get(i).setVisible(false);
 				}
 				getContentPane().add(new LogIn(currentFrame, userInfo, jMenus));
 				getContentPane().revalidate();
 			}
 		});
-		
+
 		mntmLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				getContentPane().removeAll();
-				List<JMenu> jMenus= new ArrayList<JMenu>();
+				List<JMenu> jMenus = new ArrayList<JMenu>();
 				jMenus.add(mnNewMenu);
 				jMenus.add(mnNewMenu_1);
 				jMenus.add(mnNewMenu_2);
@@ -280,12 +360,12 @@ public class Main extends JFrame {
 				getContentPane().revalidate();
 			}
 		});
-		
+
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-		
+
 		JLabel lblAcmeCourierService = new JLabel("ACME COURIER SERVICE");
 		lblAcmeCourierService.setFont(new Font("Snap ITC", Font.BOLD, 30));
 		contentPane.add(lblAcmeCourierService, BorderLayout.CENTER);

@@ -6,6 +6,7 @@
         <class>courierentity.Users</class>
         <class>courierentity.Customer</class>
         <class>courierentity.Courier</class>
+        <class>courierentity.CreateDeliveryTicket</class>
         <properties>
             <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/courier"/>
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>

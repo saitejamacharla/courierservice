@@ -1,5 +1,7 @@
-/courierUI/
 /META-INF/
 /courierDAO/
+/courierMap/
+/courierUI/
+/courierUtil/
 /courierconnection/
 /courierentity/

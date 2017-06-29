@@ -74,6 +74,10 @@ public class Addcourier extends JPanel {
 				courier.setCourierNo(Integer.parseInt(courNo_textField.getText()));
 				courierDAO.saveCourier(courier);
 				JOptionPane.showMessageDialog(currentFrame, "Courier Persisted");
+				
+				currentFrame.getContentPane().removeAll();
+				currentFrame.getContentPane().add(new CourierList(currentFrame, null));
+				currentFrame.getContentPane().revalidate();
 			}
 		});
 		add(btnCreate);

@@ -98,6 +98,11 @@ public class AddCustomer extends JPanel {
 				customer.setCustEmail(custEmail_textField.getText());
 				customerDAO.saveCustomer(customer);
 				JOptionPane.showMessageDialog(currentFrame, "Customer Persisted");
+				
+				// moving page to customer list
+				currentFrame.getContentPane().removeAll();
+				currentFrame.getContentPane().add(new CustomerList(currentFrame, userInfo));
+				currentFrame.getContentPane().revalidate();
 			}
 		});
 		

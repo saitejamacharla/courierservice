@@ -18,6 +18,9 @@ public class Courier {
 
 	@Column
 	private String courierPhoneNo;
+	
+	@Column
+	private double courierBonus=0.0;
 
 	public int getCourierNo() {
 		return courierNo;
@@ -43,4 +46,11 @@ public class Courier {
 		this.courierPhoneNo = curierPhoneNo;
 	}
 
+	public double getCourierBonus() {
+		return courierBonus;
+	}
+
+	public void setCourierBonus(double courierBonus) {
+		this.courierBonus = courierBonus;
+	}
 }

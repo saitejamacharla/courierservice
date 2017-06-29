@@ -108,6 +108,10 @@ public class EditCustomer extends JPanel {
 				customer.setCustomerNo(selectedCust.getCustomerNo());
 				customerDAO.updateCustomer(customer);
 				JOptionPane.showMessageDialog(currentFrame, "Customer Details Updated");
+				
+				currentFrame.getContentPane().removeAll();
+				currentFrame.getContentPane().add(new CustomerList(currentFrame, null));
+				currentFrame.getContentPane().revalidate();
 			}
 		});
 		

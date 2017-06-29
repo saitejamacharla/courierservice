@@ -100,6 +100,9 @@ public class UpdateCompanyInformation extends JPanel {
 
 				companyInfoDAO.updateCompanyInfo(companyInfo);
 				JOptionPane.showMessageDialog(currentFrame, "Details Updated");
+				currentFrame.getContentPane().removeAll();
+				currentFrame.getContentPane().add(new ViewCompanyInformation(currentFrame));
+				currentFrame.getContentPane().revalidate();
 			}
 		});
 
@@ -108,6 +111,22 @@ public class UpdateCompanyInformation extends JPanel {
 		JButton btnCancel = new JButton("Cancel");
 		btnCancel.setBounds(352, 546, 85, 25);
 		add(btnCancel);
+		
+		btnCancel.addActionListener(new ActionListener() {
+
+			public void actionPerformed(ActionEvent e) {
+				CompanyInfo companyInfo = new CompanyInfo();
+				textField_4.setText("");
+				textField.setText("");
+				textField_1.setText("");
+				textField_2.setText("");
+				textField_3
+						.setText("");
+
+				companyInfoDAO.updateCompanyInfo(companyInfo);
+				JOptionPane.showMessageDialog(currentFrame, "Details Updated");
+			}
+		});
 
 	}
 
