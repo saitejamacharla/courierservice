@@ -107,12 +107,12 @@ public class DeliveryTicketConfirmed extends JPanel {
 
 		JLabel lblNewLabel_9 = new JLabel(deliveryTicket.getCreatedDate()
 				.toString());
-		lblNewLabel_9.setBounds(637, 261, 56, 16);
+		lblNewLabel_9.setBounds(637, 261, 500, 16);
 		add(lblNewLabel_9);
 
 		JLabel lblNewLabel_10 = new JLabel(deliveryTicket.getPickUpTime()
 				.toString());
-		lblNewLabel_10.setBounds(637, 311, 56, 16);
+		lblNewLabel_10.setBounds(637, 311, 500, 16);
 		add(lblNewLabel_10);
 
 		JLabel lblInstruction = new JLabel("Instructions:");

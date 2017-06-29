@@ -52,11 +52,11 @@ public class EditCourier extends JPanel {
 		courName_textField.setText(selectedCourier.getCourierName());
 		
 		JLabel label = new JLabel(String.valueOf(selectedCourier.getCourierNo()));
-		label.setBounds(176, 192, 56, 16);
+		label.setBounds(176, 192, 158, 16);
 		add(label);
 		
 		courPhNo_textField = new JTextField();
-		courPhNo_textField.setBounds(177, 284, 195, 22);
+		courPhNo_textField.setBounds(177, 284, 231, 22);
 		add(courPhNo_textField);
 		courPhNo_textField.setColumns(10);
 		courPhNo_textField.setText(selectedCourier.getCourierPhoneNo());

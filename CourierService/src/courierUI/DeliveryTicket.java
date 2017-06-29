@@ -81,7 +81,7 @@ public class DeliveryTicket extends JPanel {
 
 		JLabel label = new JLabel(DateTimeFormatter.ofPattern("yyyy-MM-dd")
 				.format(localDate));
-		label.setBounds(108, 90, 56, 16);
+		label.setBounds(108, 90, 74, 16);
 		add(label);
 
 		JLabel lblTime = new JLabel("Time:");

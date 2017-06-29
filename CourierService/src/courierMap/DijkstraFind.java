@@ -107,7 +107,7 @@ public class DijkstraFind {
         WeighedDigraph graph;
 
         try {
-            graph = new WeighedDigraph("/Users/vsuramsetti/Documents/workspace/CourierService/src/example/courier_map.txt");
+            graph = new WeighedDigraph("C:/Users/theza/Documents/courier_map.txt");
             // Print graph
             System.out.print("Representation of WeighedDigraph\n");
             System.out.print(graph);

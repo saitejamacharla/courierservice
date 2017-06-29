@@ -3,7 +3,7 @@ package courierMap;
 /**
  * Implementation of weighed directed edge.
  *
- * Created by marcinkossakowski on 11/2/14.
+ *
  */
 public class WeighedDigraphEdge {
     private int from, to;

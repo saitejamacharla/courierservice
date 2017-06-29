@@ -49,11 +49,11 @@ public class DeliveredTicketsList extends JPanel {
 		add(lblSelectPackageid);
 
 		JLabel lblDate = new JLabel("Date  (yyyy-MM-dd):");
-		lblDate.setBounds(277, 104, 56, 16);
+		lblDate.setBounds(240, 104, 134, 16);
 		add(lblDate);
 
 		textField = new JTextField();
-		textField.setBounds(318, 101, 116, 22);
+		textField.setBounds(386, 101, 139, 22);
 		add(textField);
 		textField.setColumns(10);
 		textField.setText("");
